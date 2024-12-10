@@ -1,6 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
+using SchoolProject.Infrastructure;
 using SchoolProject.Infrastructure.Data;
+using SchoolProject.Service;
+using SchoolProject.Core;
 
 namespace SchoolProject.Api
 {
@@ -17,11 +20,15 @@ namespace SchoolProject.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolSystem"));
             });
 
+            builder.Services.AddInfrastructureDependencies();
+            builder.Services.AddServicesDependencies();
+            builder.Services.AddCoreDependencies();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
