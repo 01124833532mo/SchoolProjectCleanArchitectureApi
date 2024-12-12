@@ -15,6 +15,8 @@ namespace SchoolProject.Core
         public static IServiceCollection AddCoreDependencies(this IServiceCollection services)
         {
             services.AddMediatR(option=>option.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
             return services;
         }
     }
