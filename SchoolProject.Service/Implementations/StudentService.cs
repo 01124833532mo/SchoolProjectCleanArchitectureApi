@@ -1,4 +1,5 @@
-﻿using SchoolProject.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SchoolProject.Data.Entities;
 using SchoolProject.Infrastructure.Abstracts;
 using SchoolProject.Infrastructure.Repositories;
 using SchoolProject.Service.Abstractions;
@@ -10,9 +11,20 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Service.Implementations
 {
-    public class StudentService(IStudentRepository  studentRepository ) : IStudentService
+    public class StudentService : IStudentService
     {
-        private readonly IStudentRepository _studentRepository = studentRepository;
+        private readonly IStudentRepository _studentRepository;
+
+        public StudentService(IStudentRepository studentRepository)
+        {
+            _studentRepository = studentRepository;
+        }
+        public async Task<Student> GetStudentByIdAsync(int id)
+        {
+          var student=   _studentRepository.GetTableNoTracking().Include(p => p.Department).Where(p => p.Id.Equals(id)).FirstOrDefault();
+
+            return student;
+        }
 
         public async Task<List<Student>> GetStudentsAsync()
         {
