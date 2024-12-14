@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolProject.Core.Features.Students.Commands.Models;
 using SchoolProject.Core.Features.Students.Queries.Models;
 using SchoolProject.Data.AppMetaData;
 
@@ -23,9 +24,16 @@ namespace SchoolProject.Api.Controllers.Students
         }
 
         [HttpGet(Router.StudentRouting.GetById )]
-        public async Task<IActionResult> GetStudent(/*[FromRoute]*/ int id)
+        public async Task<IActionResult> GetStudent([FromRoute] int id)
         {
             var result = await _mediator.Send(new GetStudentByIdQuery(id));
+            return Ok(result);
+        }
+
+        [HttpPost(Router.StudentRouting.Create)]
+        public async Task<IActionResult> CreateStudent([FromBody] AddStudentCommand command)
+        {
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 
