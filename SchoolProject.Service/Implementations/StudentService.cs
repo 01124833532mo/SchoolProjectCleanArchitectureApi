@@ -1,13 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Entities;
 using SchoolProject.Infrastructure.Abstracts;
-using SchoolProject.Infrastructure.Repositories;
 using SchoolProject.Service.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolProject.Service.Implementations
 {
@@ -21,7 +15,7 @@ namespace SchoolProject.Service.Implementations
         }
         public async Task<Student> GetStudentByIdAsync(int id)
         {
-          var student=   _studentRepository.GetTableNoTracking().Include(p => p.Department).Where(p => p.Id.Equals(id)).FirstOrDefault();
+            var student = _studentRepository.GetTableNoTracking().Include(p => p.Department).Where(p => p.Id.Equals(id)).FirstOrDefault();
 
             return student;
         }
@@ -41,6 +35,15 @@ namespace SchoolProject.Service.Implementations
         public async Task<List<Student>> GetStudentsAsync()
         {
             return await _studentRepository.GetStudentsListAsync();
+        }
+
+        public async Task<bool> IsNameExist(string name)
+        {
+            var student = _studentRepository.GetTableNoTracking().Where(x => x.Name.Equals(name)).FirstOrDefault();
+
+            if (student == null) return false;
+            return true;
+
         }
     }
 }
