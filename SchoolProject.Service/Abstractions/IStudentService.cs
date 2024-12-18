@@ -6,7 +6,9 @@ namespace SchoolProject.Service.Abstractions
     {
         public Task<List<Student>> GetStudentsAsync();
 
-        public Task<Student> GetStudentByIdAsync(int id);
+        public Task<Student> GetStudentByIdWithIncludeAsync(int id);
+        public Task<Student> GetByIdAsync(int id);
+
 
         public Task<string> AddAsync(Student student);
 
@@ -14,6 +16,8 @@ namespace SchoolProject.Service.Abstractions
         public Task<bool> IsNameExistExcludeSelf(string name, int id);
 
         public Task<string> EditAsync(Student student);
+
+        public Task<string> DeleteAsync(Student student);
 
 
     }
