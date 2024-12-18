@@ -1,9 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
+using SchoolProject.Core;
 using SchoolProject.Infrastructure;
 using SchoolProject.Infrastructure.Data;
 using SchoolProject.Service;
-using SchoolProject.Core;
 
 namespace SchoolProject.Api
 {
@@ -29,6 +29,7 @@ namespace SchoolProject.Api
             builder.Services.AddInfrastructureDependencies();
             builder.Services.AddServicesDependencies();
             builder.Services.AddCoreDependencies();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -37,6 +38,7 @@ namespace SchoolProject.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseHttpsRedirection();
 
