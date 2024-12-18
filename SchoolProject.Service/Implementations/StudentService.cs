@@ -85,5 +85,24 @@ namespace SchoolProject.Service.Implementations
             var student = await _studentRepository.GetByIdAsync(id);
             return student;
         }
+
+        public IQueryable<Student> GetStudentsQuarable()
+        {
+            return _studentRepository.GetTableNoTracking().Include(x => x.Department).AsQueryable();
+
+
+
+        }
+
+        public IQueryable<Student> FilterStudentsPaginatedQueryable(string search)
+        {
+            var querable = _studentRepository.GetTableNoTracking().Include(x => x.Department).AsQueryable();
+            if (search != null)
+            {
+                querable = querable.Where(x => x.Name.Contains(search) || x.Address.Contains(search));
+
+            }
+            return querable;
+        }
     }
 }
