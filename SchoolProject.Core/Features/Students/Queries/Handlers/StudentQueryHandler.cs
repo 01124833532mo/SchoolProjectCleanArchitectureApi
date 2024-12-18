@@ -48,7 +48,7 @@ namespace SchoolProject.Core.Features.Students.Queries.Handlers
             Expression<Func<Student, GetStudentPaginatedListResponse>> expression = e => new GetStudentPaginatedListResponse(e.Id, e.Name, e.Address, e.Department.Name);
             //var querable = _studentService.GetStudentsQueryable();
             //var querable = _studentService.GetStudentsQuarable();
-            var filterQuery = _studentService.FilterStudentsPaginatedQueryable(request.Search);
+            var filterQuery = _studentService.FilterStudentsPaginatedQueryable(request.OrderBy, request.Search);
             var paginatedList = await filterQuery.Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
 
 
