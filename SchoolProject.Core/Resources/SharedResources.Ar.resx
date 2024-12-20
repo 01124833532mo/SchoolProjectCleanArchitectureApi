@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BadRequest" xml:space="preserve">
+    <value>طلب خطأ</value>
+  </data>
   <data name="Created" xml:space="preserve">
     <value>تم الاضافة بنجاح</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Success" xml:space="preserve">
     <value>تمت الاضافة بنجاح</value>
+  </data>
+  <data name="UnAuthorized" xml:space="preserve">
+    <value>غير مسموح لك </value>
   </data>
   <data name="Updated" xml:space="preserve">
     <value>تم التعديل بنجاح</value>

@@ -8,6 +8,8 @@
         public const string Created = "Created";
         public const string Success = "Success";
         public const string NotEmpty = "NotEmpty";
+        public const string UnAuthorized = "UnAuthorized";
+        public const string BadRequest = "BadRequest";
 
 
 

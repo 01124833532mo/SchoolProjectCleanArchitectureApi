@@ -40,6 +40,9 @@ namespace SchoolProject.Api
                      {
                          option.ResourcesPath = "";
                      });
+
+
+
             builder.Services.Configure<RequestLocalizationOptions>(options =>
                 {
                     List<CultureInfo> supportedCultures = new List<CultureInfo>

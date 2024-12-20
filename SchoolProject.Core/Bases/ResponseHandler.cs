@@ -43,7 +43,7 @@ namespace SchoolProject.Core.Bases
             {
                 StatusCode = System.Net.HttpStatusCode.Unauthorized,
                 Succeeded = true,
-                Message = "UnAuthorized"
+                Message = _stringLocalizer[SharedResourcesKeys.UnAuthorized]
             };
         }
         public Response<T> BadRequest<T>(string Message = null!)
@@ -52,7 +52,7 @@ namespace SchoolProject.Core.Bases
             {
                 StatusCode = System.Net.HttpStatusCode.BadRequest,
                 Succeeded = false,
-                Message = Message == null ? "Bad Request" : Message
+                Message = Message == null ? _stringLocalizer[SharedResourcesKeys.BadRequest] : Message
             };
         }
         public Response<T> UnprocessableEntity<T>(string Message = null!)
@@ -71,7 +71,7 @@ namespace SchoolProject.Core.Bases
             {
                 StatusCode = System.Net.HttpStatusCode.NotFound,
                 Succeeded = false,
-                Message = message == null ? "Not Found" : message
+                Message = message == null ? _stringLocalizer[SharedResourcesKeys.NotFound] : message
             };
         }
 
