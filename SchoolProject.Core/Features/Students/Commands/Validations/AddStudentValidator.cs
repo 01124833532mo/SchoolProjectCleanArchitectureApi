@@ -25,7 +25,7 @@ namespace SchoolProject.Core.Features.Students.Commands.Validations
 
         public void ApplayValidationsRules()
         {
-            RuleFor(e => e.Name).NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
+            RuleFor(e => e.NameAr).NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
                                .NotNull().WithMessage("Name Must not Be Null")
                                .MaximumLength(100).WithMessage("Max Length is 10");
 
@@ -36,7 +36,7 @@ namespace SchoolProject.Core.Features.Students.Commands.Validations
         }
         public void ApplayCustomValidationsRules()
         {
-            RuleFor(x => x.Name)
+            RuleFor(x => x.NameAr)
                 .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameExist(key))
                 .WithMessage("Name is Exist");
         }

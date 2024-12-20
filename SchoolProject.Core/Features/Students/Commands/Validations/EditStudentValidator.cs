@@ -21,7 +21,7 @@ namespace SchoolProject.Core.Features.Students.Commands.Validations
 
         public void ApplayValidationsRules()
         {
-            RuleFor(e => e.Name).NotEmpty().WithMessage("Name Must not be Empty")
+            RuleFor(e => e.NameAr).NotEmpty().WithMessage("Name Must not be Empty")
                                .NotNull().WithMessage("Name Must not Be Null")
                                .MaximumLength(100).WithMessage("Max Length is 10");
 
@@ -32,7 +32,7 @@ namespace SchoolProject.Core.Features.Students.Commands.Validations
         }
         public void ApplayCustomValidationsRules()
         {
-            RuleFor(x => x.Name)
+            RuleFor(x => x.NameAr)
                 .MustAsync(async (model, key, CancellationToken) => !await _studentService.IsNameExistExcludeSelf(key, model.Id))
                 .WithMessage("Name is Exist");
         }
