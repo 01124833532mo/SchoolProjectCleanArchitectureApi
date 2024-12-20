@@ -1,14 +1,19 @@
 ﻿
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Localization;
+using SchoolProject.Core.Resources;
 
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
        where TRequest : IRequest<TResponse>
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
-    public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
+    private readonly IStringLocalizer<SharedResources> _localizer;
+
+    public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators, IStringLocalizer<SharedResources> localizer)
     {
         _validators = validators;
+        _localizer = localizer;
     }
 
 
@@ -23,7 +28,7 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
 
             if (failures.Count != 0)
             {
-                var message = failures.Select(X => X.ErrorMessage).FirstOrDefault();
+                var message = failures.Select(X => _localizer[$"{X.PropertyName}"] + ":" + _localizer[X.ErrorMessage]).FirstOrDefault();
 
                 throw new ValidationException(message);
 

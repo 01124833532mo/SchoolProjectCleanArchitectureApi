@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Features.Students.Commands.Models;
+using SchoolProject.Core.Resources;
 using SchoolProject.Service.Abstractions;
 
 namespace SchoolProject.Core.Features.Students.Commands.Validations
@@ -7,19 +9,23 @@ namespace SchoolProject.Core.Features.Students.Commands.Validations
     public class AddStudentValidator : AbstractValidator<AddStudentCommand>
     {
         private readonly IStudentService _studentService;
+        private readonly IStringLocalizer<SharedResources> _localizer;
 
-        public AddStudentValidator(IStudentService studentService)
+
+        public AddStudentValidator(IStudentService studentService, IStringLocalizer<SharedResources> localizer)
         {
+            _studentService = studentService;
+            _localizer = localizer;
             ApplayValidationsRules();
             ApplayCustomValidationsRules();
-            _studentService = studentService;
+
         }
 
 
 
         public void ApplayValidationsRules()
         {
-            RuleFor(e => e.Name).NotEmpty().WithMessage("Name Must not be Empty")
+            RuleFor(e => e.Name).NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
                                .NotNull().WithMessage("Name Must not Be Null")
                                .MaximumLength(100).WithMessage("Max Length is 10");
 

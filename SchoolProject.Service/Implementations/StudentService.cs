@@ -23,14 +23,21 @@ namespace SchoolProject.Service.Implementations
 
         public async Task<string> AddAsync(Student student)
         {
-            var studentResult = _studentRepository.GetTableNoTracking().Where(x => x.Name.Equals(student.Name)).FirstOrDefault();
-            if (studentResult is not null) return "Exist";
+            //var studentResult = _studentRepository.GetTableNoTracking().Where(x => x.name.Equals(student.Name)).FirstOrDefault();
+            //if (studentResult is not null) return "Exist";
 
-            //if (student.Id != null)
+            //if (student.Id != null)   
             //    student.Id = null;
+
+
+            if (student.DepartmentId == null)
+                student.DepartmentId = null;
 
             await _studentRepository.AddAsync(student);
             return "Success";
+
+            //await _studentRepository.AddAsync(student);
+            //return "Success";
         }
 
         public async Task<List<Student>> GetStudentsAsync()
@@ -40,7 +47,7 @@ namespace SchoolProject.Service.Implementations
 
         public async Task<bool> IsNameExist(string name)
         {
-            var student = _studentRepository.GetTableNoTracking().Where(x => x.Name.Equals(name)).FirstOrDefault();
+            var student = _studentRepository.GetTableNoTracking().Where(x => x.NameAr.Equals(name)).FirstOrDefault();
 
             if (student == null) return false;
             return true;
@@ -49,7 +56,7 @@ namespace SchoolProject.Service.Implementations
 
         public async Task<bool> IsNameExistExcludeSelf(string name, int id)
         {
-            var student = await _studentRepository.GetTableNoTracking().Where(x => x.Name.Equals(name) & !x.Id.Equals(id)).FirstOrDefaultAsync();
+            var student = await _studentRepository.GetTableNoTracking().Where(x => x.NameEn.Equals(name) & !x.Id.Equals(id)).FirstOrDefaultAsync();
 
             if (student == null) return false;
             return true;
@@ -100,7 +107,7 @@ namespace SchoolProject.Service.Implementations
             var querable = _studentRepository.GetTableNoTracking().Include(x => x.Department).AsQueryable();
             if (search != null)
             {
-                querable = querable.Where(x => x.Name.Contains(search) || x.Address.Contains(search));
+                querable = querable.Where(x => x.NameAr.Contains(search) || x.Address.Contains(search));
 
             }
 
@@ -113,10 +120,10 @@ namespace SchoolProject.Service.Implementations
                     querable = querable.OrderBy(querable => querable.Address);
                     break;
                 case StudentOrderingEnum.Name:
-                    querable = querable.OrderBy(querable => querable.Name);
+                    querable = querable.OrderBy(querable => querable.NameAr);
                     break;
                 case StudentOrderingEnum.DepartmentName:
-                    querable = querable.OrderBy(querable => querable.Department.Name);
+                    querable = querable.OrderBy(querable => querable.Department.NameAr);
                     break;
 
                 default:
