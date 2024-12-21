@@ -33,8 +33,12 @@ namespace SchoolProject.Core.Features.Students.Commands.Validations
         public void ApplayCustomValidationsRules()
         {
             RuleFor(x => x.NameAr)
-                .MustAsync(async (model, key, CancellationToken) => !await _studentService.IsNameExistExcludeSelf(key, model.Id))
+                .MustAsync(async (model, key, CancellationToken) => !await _studentService.IsNameArExistExcludeSelf(key, model.Id))
                 .WithMessage("Name is Exist");
+
+            RuleFor(x => x.NameEn)
+             .MustAsync(async (model, key, CancellationToken) => !await _studentService.IsNameEnExistExcludeSelf(key, model.Id))
+             .WithMessage("Name is Exist");
         }
 
     }

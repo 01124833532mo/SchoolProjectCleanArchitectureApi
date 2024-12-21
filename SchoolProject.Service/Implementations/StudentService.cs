@@ -45,7 +45,7 @@ namespace SchoolProject.Service.Implementations
             return await _studentRepository.GetStudentsListAsync();
         }
 
-        public async Task<bool> IsNameExist(string name)
+        public async Task<bool> IsNameArExist(string name)
         {
             var student = _studentRepository.GetTableNoTracking().Where(x => x.NameAr.Equals(name)).FirstOrDefault();
 
@@ -54,7 +54,24 @@ namespace SchoolProject.Service.Implementations
 
         }
 
-        public async Task<bool> IsNameExistExcludeSelf(string name, int id)
+        public async Task<bool> IsNameEnExist(string name)
+        {
+            var student = _studentRepository.GetTableNoTracking().Where(x => x.NameEn.Equals(name)).FirstOrDefault();
+
+            if (student == null) return false;
+            return true;
+
+        }
+
+        public async Task<bool> IsNameArExistExcludeSelf(string name, int id)
+        {
+            var student = await _studentRepository.GetTableNoTracking().Where(x => x.NameAr.Equals(name) & !x.Id.Equals(id)).FirstOrDefaultAsync();
+
+            if (student == null) return false;
+            return true;
+        }
+
+        public async Task<bool> IsNameEnExistExcludeSelf(string name, int id)
         {
             var student = await _studentRepository.GetTableNoTracking().Where(x => x.NameEn.Equals(name) & !x.Id.Equals(id)).FirstOrDefaultAsync();
 

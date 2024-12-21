@@ -9,6 +9,7 @@ namespace SchoolProject.Core.Bases
         private readonly IStringLocalizer<SharedResources> _stringLocalizer;
 
 
+
         public ResponseHandler(IStringLocalizer<SharedResources> StringLocalizer)
         {
             _stringLocalizer = StringLocalizer;
