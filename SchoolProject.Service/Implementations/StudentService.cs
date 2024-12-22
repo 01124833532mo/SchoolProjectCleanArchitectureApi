@@ -149,5 +149,12 @@ namespace SchoolProject.Service.Implementations
             }
             return querable;
         }
+
+        public IQueryable<Student> GetStudentsByDepartmentIdQuarable(int Did)
+        {
+            return _studentRepository.GetTableNoTracking().Where(x => x.DepartmentId.Equals(Did)).AsQueryable();
+
+
+        }
     }
 }

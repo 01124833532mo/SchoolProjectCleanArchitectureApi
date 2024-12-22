@@ -18,7 +18,6 @@ namespace SchoolProject.Service.Implementations
         {
             var department = await _departmentRepository.GetTableNoTracking().Where(e => e.Id.Equals(id))
                     .Include(x => x.DepartmentSubjects).ThenInclude(x => x.Subject)
-                    .Include(x => x.Students)
                     .Include(x => x.Instructors)
                     .Include(x => x.Instructor).FirstOrDefaultAsync();
 

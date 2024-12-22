@@ -28,7 +28,7 @@
         {
             public const string Prefix = Rule + "Department";
             public const string List = Prefix + "/List";
-            public const string GetById = Prefix + SingleRoute;
+            public const string GetById = Prefix + "/id";
             public const string Create = Prefix + "/Create";
             public const string Edit = Prefix + "/Edit";
 
