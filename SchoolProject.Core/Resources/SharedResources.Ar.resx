@@ -139,7 +139,7 @@
     <value>هزا الحقل مطلوب</value>
   </data>
   <data name="Success" xml:space="preserve">
-    <value>تمت الاضافة بنجاح</value>
+    <value>تمت العملية بنجاح</value>
   </data>
   <data name="UnAuthorized" xml:space="preserve">
     <value>غير مسموح لك </value>

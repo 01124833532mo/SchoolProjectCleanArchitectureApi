@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SchoolProject.Data.Common;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolProject.Data.Entities
 {
-    public class Subjects
+    public class Subjects : GeneralLocalizableEntity
     {
 
         [Key]
@@ -12,7 +13,7 @@ namespace SchoolProject.Data.Entities
         public string? NameAr { get; set; }
         public string? NameEn { get; set; }
 
-        public DateTime? Period { get; set; }
+        public int Period { get; set; }
 
         [InverseProperty("Subject")]
         public virtual ICollection<StudentSubject> StudentsSubjects { get; set; } = new HashSet<StudentSubject>();

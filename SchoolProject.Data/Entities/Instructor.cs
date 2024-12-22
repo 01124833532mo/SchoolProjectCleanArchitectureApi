@@ -1,15 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SchoolProject.Data.Common;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolProject.Data.Entities
 {
-    public class Instructor
+    public class Instructor : GeneralLocalizableEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int InstructorId { get; set; }
         public string? NameAr { get; set; }
-        public string? Name { get; set; }
+        public string? NameEn { get; set; }
         public string? Address { get; set; }
         public string? Position { get; set; }
         public int? SupervisorId { get; set; }
