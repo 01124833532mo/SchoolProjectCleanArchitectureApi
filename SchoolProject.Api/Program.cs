@@ -1,10 +1,9 @@
 
 using Microsoft.AspNetCore.Localization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using SchoolProject.Api.Services;
 using SchoolProject.Core;
 using SchoolProject.Infrastructure;
-using SchoolProject.Infrastructure.Data;
 using SchoolProject.Service;
 using System.Globalization;
 
@@ -24,14 +23,12 @@ namespace SchoolProject.Api
             builder.Services.AddSwaggerGen();
 
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolSystem"));
-            });
+
 
             builder.Services.AddInfrastructureDependencies();
             builder.Services.AddServicesDependencies();
             builder.Services.AddCoreDependencies();
+            builder.Services.AddServiceRegistration(builder.Configuration);
 
 
             #region Localization

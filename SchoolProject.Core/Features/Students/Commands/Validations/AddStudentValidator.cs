@@ -10,12 +10,13 @@ namespace SchoolProject.Core.Features.Students.Commands.Validations
     {
         private readonly IStudentService _studentService;
         private readonly IStringLocalizer<SharedResources> _localizer;
+        private readonly IDepartmentServices _departmentServices;
 
-
-        public AddStudentValidator(IStudentService studentService, IStringLocalizer<SharedResources> localizer)
+        public AddStudentValidator(IStudentService studentService, IStringLocalizer<SharedResources> localizer, IDepartmentServices departmentServices)
         {
             _studentService = studentService;
             _localizer = localizer;
+            _departmentServices = departmentServices;
             ApplayValidationsRules();
             ApplayCustomValidationsRules();
 
@@ -33,6 +34,9 @@ namespace SchoolProject.Core.Features.Students.Commands.Validations
                               .NotNull().WithMessage("{PropertyValue} Must not Be Null")
                               .MaximumLength(100).WithMessage("{PropertyName} Length is 10");
 
+            RuleFor(e => e.DepartmentId).NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
+                                        .NotNull().WithMessage("Department Must Not Null , Must Be Requerd");
+
         }
         public void ApplayCustomValidationsRules()
         {
@@ -42,6 +46,11 @@ namespace SchoolProject.Core.Features.Students.Commands.Validations
             RuleFor(x => x.NameEn)
                .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameEnExist(key))
                .WithMessage("Name is Exist");
+
+
+            RuleFor(x => x.DepartmentId)
+             .MustAsync(async (key, CancellationToken) => await _departmentServices.IsDepartmentIdExist(key))
+             .WithMessage(_localizer[SharedResourcesKeys.DepartmentIdIsNotExist]);
         }
     }
 }

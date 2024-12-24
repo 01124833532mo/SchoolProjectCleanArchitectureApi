@@ -37,5 +37,15 @@
 
 
         }
+
+        public static class ApplicationUserRouting
+        {
+            public const string Prefix = Rule + "User";
+            public const string GetById = Prefix + "/id";
+            public const string Create = Prefix + "/Create";
+
+
+
+        }
     }
 }

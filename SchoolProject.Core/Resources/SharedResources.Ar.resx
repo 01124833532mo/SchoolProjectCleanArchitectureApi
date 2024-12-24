@@ -126,6 +126,18 @@
   <data name="Deleted" xml:space="preserve">
     <value>تم الحزف بنجاح</value>
   </data>
+  <data name="DepartmentId" xml:space="preserve">
+    <value>رقم القسم</value>
+  </data>
+  <data name="DepartmentIdIsNotExist" xml:space="preserve">
+    <value>لا يوجد هزا القسم</value>
+  </data>
+  <data name="EmailIsExsist" xml:space="preserve">
+    <value> هزا الحساب موجود</value>
+  </data>
+  <data name="FaildToAddUser" xml:space="preserve">
+    <value>خطأ في أضافة العميل</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>الاسم</value>
   </data>
@@ -134,6 +146,9 @@
   </data>
   <data name="NotFound" xml:space="preserve">
     <value>غير متوفر</value>
+  </data>
+  <data name="PasswordNotEqualConfirmPasssword" xml:space="preserve">
+    <value>رقم تأكيد السر لا يساوي رقم السر</value>
   </data>
   <data name="Required" xml:space="preserve">
     <value>هزا الحقل مطلوب</value>
@@ -146,5 +161,8 @@
   </data>
   <data name="Updated" xml:space="preserve">
     <value>تم التعديل بنجاح</value>
+  </data>
+  <data name="UserIsExsist" xml:space="preserve">
+    <value>هزا المستخدم موجود بالفعل</value>
   </data>
 </root>
