@@ -19,6 +19,7 @@
         public const string FaildToAddUser = "FaildToAddUser";
 
         public const string UpdateFailed = "Update Failed";
+        public const string DeletedFailed = "Deleted Failed";
 
 
         public const string Updated = "Updated";

@@ -11,7 +11,9 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
 {
     public class UserCommandHandler : ResponseHandler,
         IRequestHandler<AddUserCommand, Response<string>>,
-        IRequestHandler<EditUserCommand, Response<string>>
+        IRequestHandler<EditUserCommand, Response<string>>,
+                IRequestHandler<DeleteUserCommand, Response<string>>
+
     {
         private readonly IStringLocalizer _stringLocalizer;
         private readonly IMapper _mapper;
@@ -64,6 +66,24 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
 
             // Message
             return Success((string)_stringLocalizer[SharedResourcesKeys.Updated]);
+        }
+
+        public async Task<Response<string>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+        {
+            // Check if user is exist
+            var user = await _userManager.FindByIdAsync(request.Id.ToString());
+
+            // If Not Exist notfound
+            if (user == null) return NotFound<string>();
+
+            // Delete the User
+            var result = await _userManager.DeleteAsync(user);
+
+            // In case of Failure
+            if (!result.Succeeded) return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.Deleted]);
+
+            // Success
+            return Success((string)_stringLocalizer[SharedResourcesKeys.Deleted]);
         }
     }
 }
