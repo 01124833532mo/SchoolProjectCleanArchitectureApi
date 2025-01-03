@@ -44,6 +44,7 @@
             public const string GetById = Prefix + "/id";
             public const string Create = Prefix + "/Create";
 
+            public const string Paginated = Prefix + "/Paginated";
 
 
         }
