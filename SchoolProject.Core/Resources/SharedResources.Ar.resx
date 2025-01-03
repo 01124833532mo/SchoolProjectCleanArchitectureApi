@@ -153,6 +153,9 @@
   <data name="Required" xml:space="preserve">
     <value>هزا الحقل مطلوب</value>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value>تم التعديل بنجاح</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>تمت العملية بنجاح</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="Updated" xml:space="preserve">
     <value>تم التعديل بنجاح</value>
+  </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>فشل التعديل</value>
   </data>
   <data name="UserIsExsist" xml:space="preserve">
     <value>هزا المستخدم موجود بالفعل</value>

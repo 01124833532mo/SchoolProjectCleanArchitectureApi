@@ -156,6 +156,9 @@
   <data name="String2" xml:space="preserve">
     <value />
   </data>
+  <data name="String3" xml:space="preserve">
+    <value>Updated</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>Operation Succeded</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="Updated" xml:space="preserve">
     <value>Updated Successfully</value>
+  </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Update Failed</value>
   </data>
   <data name="UserIsExsist" xml:space="preserve">
     <value>User Is Exsist</value>

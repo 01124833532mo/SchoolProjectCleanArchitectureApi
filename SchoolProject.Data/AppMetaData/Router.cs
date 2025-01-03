@@ -46,6 +46,7 @@
 
             public const string Paginated = Prefix + "/Paginated";
 
+            public const string Edit = Prefix + "/Edit";
 
         }
     }
