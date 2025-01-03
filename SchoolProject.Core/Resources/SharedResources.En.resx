@@ -120,6 +120,12 @@
   <data name="BadRequest" xml:space="preserve">
     <value>Bad Request</value>
   </data>
+  <data name="ChangePasswordFailed" xml:space="preserve">
+    <value>Change Password Failed</value>
+  </data>
+  <data name="ChangePasswordSuccess" xml:space="preserve">
+    <value>Change Password Success</value>
+  </data>
   <data name="Created" xml:space="preserve">
     <value>Created Successfully</value>
   </data>

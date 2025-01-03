@@ -120,6 +120,12 @@
   <data name="BadRequest" xml:space="preserve">
     <value>طلب خطأ</value>
   </data>
+  <data name="ChangePasswordFailed" xml:space="preserve">
+    <value>فشل في تغير كلمة المرور</value>
+  </data>
+  <data name="ChangePasswordSuccess" xml:space="preserve">
+    <value>نجح في تغير كلمة المرور</value>
+  </data>
   <data name="Created" xml:space="preserve">
     <value>تم الاضافة بنجاح</value>
   </data>

@@ -20,6 +20,8 @@
 
         public const string UpdateFailed = "Update Failed";
         public const string DeletedFailed = "Deleted Failed";
+        public const string ChangePasswordFailed = "Change PasswordFailed Failed";
+        public const string ChangePasswordSuccess = "Change PasswordFailed Success";
 
 
         public const string Updated = "Updated";
