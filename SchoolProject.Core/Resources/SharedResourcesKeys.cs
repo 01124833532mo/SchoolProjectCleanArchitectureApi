@@ -22,6 +22,10 @@
         public const string DeletedFailed = "Deleted Failed";
         public const string ChangePasswordFailed = "Change PasswordFailed Failed";
         public const string ChangePasswordSuccess = "Change PasswordFailed Success";
+        public const string UserName = "User Name";
+        public const string Password = "Password";
+        public const string UserNameIsNotExist = "UserNameIsNotExist";
+        public const string PasswordNotCorrect = "PasswordNotCorrect";
 
 
         public const string Updated = "Updated";

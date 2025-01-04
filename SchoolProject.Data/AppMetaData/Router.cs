@@ -51,5 +51,15 @@
             public const string Edit = Prefix + "/Edit";
 
         }
+
+        public static class Authentication
+        {
+            public const string Prefix = Rule + "Authentication";
+            public const string SignIn = Prefix + "/SignIn";
+
+
+        }
+
+
     }
 }

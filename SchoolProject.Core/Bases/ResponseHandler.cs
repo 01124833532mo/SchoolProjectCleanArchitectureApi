@@ -40,12 +40,14 @@ namespace SchoolProject.Core.Bases
         }
         public Response<T> Unauthorized<T>()
         {
+
             return new Response<T>()
             {
                 StatusCode = System.Net.HttpStatusCode.Unauthorized,
                 Succeeded = true,
                 Message = _stringLocalizer[SharedResourcesKeys.UnAuthorized]
             };
+
         }
         public Response<T> BadRequest<T>(string Message = null!)
         {

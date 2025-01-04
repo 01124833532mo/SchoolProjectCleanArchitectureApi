@@ -153,6 +153,12 @@
   <data name="NotFound" xml:space="preserve">
     <value>Object is Not Found</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordNotCorrect" xml:space="preserve">
+    <value>Password Not Correct</value>
+  </data>
   <data name="PasswordNotEqualConfirmPasssword" xml:space="preserve">
     <value>Password Not Equal Confirm Passsword</value>
   </data>
@@ -182,5 +188,11 @@
   </data>
   <data name="UserIsExsist" xml:space="preserve">
     <value>User Is Exsist</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="UserNameIsNotExist" xml:space="preserve">
+    <value>User Name Is NotExist</value>
   </data>
 </root>

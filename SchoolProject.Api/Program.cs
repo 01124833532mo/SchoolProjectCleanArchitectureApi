@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 using SchoolProject.Api.Services;
 using SchoolProject.Core;
+using SchoolProject.Data.Helpers;
 using SchoolProject.Infrastructure;
 using SchoolProject.Service;
 using System.Globalization;
@@ -29,6 +30,7 @@ namespace SchoolProject.Api
             builder.Services.AddServicesDependencies();
             builder.Services.AddCoreDependencies();
             builder.Services.AddServiceRegistration(builder.Configuration);
+            builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("jwtSettings"));
 
 
             #region Localization
@@ -78,6 +80,7 @@ namespace SchoolProject.Api
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
