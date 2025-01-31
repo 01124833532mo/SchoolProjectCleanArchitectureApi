@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlgorithmisWrong" xml:space="preserve">
+    <value>هناك خطأ في الخوارزمية المستخدمة في التشفير</value>
+  </data>
   <data name="BadRequest" xml:space="preserve">
     <value>طلب خطأ</value>
   </data>
@@ -165,6 +168,12 @@
   <data name="PasswordNotEqualConfirmPasssword" xml:space="preserve">
     <value>رقم تأكيد السر لا يساوي رقم السر</value>
   </data>
+  <data name="RefreshTokenIsExpired" xml:space="preserve">
+    <value>اعادة تشعيل الكود منتهي</value>
+  </data>
+  <data name="RefreshTokenIsNotFound" xml:space="preserve">
+    <value>اعادة تشفير الكود ليس موجدا</value>
+  </data>
   <data name="Required" xml:space="preserve">
     <value>هزا الحقل مطلوب</value>
   </data>
@@ -173,6 +182,12 @@
   </data>
   <data name="Success" xml:space="preserve">
     <value>تمت العملية بنجاح</value>
+  </data>
+  <data name="TokenIsExpired" xml:space="preserve">
+    <value>هذا الكود منتهي</value>
+  </data>
+  <data name="tokenisnotExpired" xml:space="preserve">
+    <value>كود التشفير شغال</value>
   </data>
   <data name="UnAuthorized" xml:space="preserve">
     <value>غير مسموح لك </value>

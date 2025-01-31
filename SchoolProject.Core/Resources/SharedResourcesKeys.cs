@@ -27,6 +27,13 @@
         public const string UserNameIsNotExist = "UserNameIsNotExist";
         public const string PasswordNotCorrect = "PasswordNotCorrect";
 
+        public const string AlgorithmisWrong = "AlgorithmisWrong";
+        public const string tokenisnotExpired = "tokenisnotExpired";
+        public const string RefreshTokenIsNotFound = "RefreshTokenIsNotFound";
+        public const string RefreshTokenIsExpired = "RefreshTokenIsExpired";
+        public const string TokenIsExpired = "TokenIsExpired";
+
+
 
         public const string Updated = "Updated";
 

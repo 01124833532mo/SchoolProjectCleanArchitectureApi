@@ -23,8 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Authntecation\Queries\Handlers\" />
-    <Folder Include="Features\Authntecation\Queries\Models\" />
     <Folder Include="Features\Authntecation\Queries\Response\" />
     <Folder Include="Features\Department\Command\" />
     <Folder Include="Mapping\Departments\CommandMapping\" />
