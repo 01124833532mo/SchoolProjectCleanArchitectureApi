@@ -19,7 +19,7 @@ namespace SchoolProject.Api.Services
                 options.UseSqlServer(configuration.GetConnectionString("SchoolSystem"));
             });
 
-            services.AddIdentity<User, IdentityRole<int>>(options =>
+            services.AddIdentity<User, Role>(options =>
             {
 
                 options.SignIn.RequireConfirmedEmail = false;

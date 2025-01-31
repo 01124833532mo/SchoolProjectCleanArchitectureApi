@@ -36,6 +36,7 @@
 
 
         public const string Updated = "Updated";
+        public const string AddFaild = "AddFaild";
 
 
     }

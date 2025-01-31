@@ -11,6 +11,7 @@ namespace SchoolProject.Service
             services.AddTransient(typeof(IStudentService), typeof(StudentService));
             services.AddTransient(typeof(IDepartmentServices), typeof(DepartmentServices));
             services.AddTransient(typeof(IAuthenticationService), typeof(AuthenticationService));
+            services.AddTransient(typeof(IAuthorizationService), typeof(AuthorizationService));
 
             //services.Configure<JwtSettings>(configuration.GetSection("jwtSettings"));
 
