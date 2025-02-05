@@ -68,6 +68,9 @@
 
             public const string Create = Prefix + "/Role/Create";
 
+            public const string ManageUserRoles = Prefix + "/ManageUserRoles/{userid}";
+
+
 
         }
     }
