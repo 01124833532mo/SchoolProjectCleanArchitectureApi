@@ -24,6 +24,13 @@ namespace SchoolProject.Api.Controllers.Auth
             var result = await Mediator.Send(new ManageUserRoleQuery() { UserId = userid });
             return NewResult(result);
         }
+
+        [HttpGet(Router.AuthorizationRouting.ManageUserClaims)]
+        public async Task<IActionResult> ManageUserClaims([FromRoute] int userid)
+        {
+            var result = await Mediator.Send(new ManageUserClaimsQuery() { UserId = userid });
+            return NewResult(result);
+        }
     }
 
 

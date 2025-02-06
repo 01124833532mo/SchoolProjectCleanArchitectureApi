@@ -11,14 +11,14 @@ using SchoolProject.Service.Abstractions;
 
 namespace SchoolProject.Core.Features.Authorization.Queries.Handlers
 {
-    public class RoleQueryHandler : ResponseHandler, IRequestHandler<ManageUserRoleQuery, Response<ManageUserRolesResult>>
+    public class ClaimsQueryHandler : ResponseHandler, IRequestHandler<ManageUserClaimsQuery, Response<ManageUserClaimsResult>>
     {
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<SharedResources> _localizer;
         private readonly IAuthorizationService authorizationService;
         private readonly UserManager<User> userManager;
 
-        public RoleQueryHandler(IMapper mapper, IStringLocalizer<SharedResources> localizer, IAuthorizationService authorizationService, UserManager<User> userManager) : base(localizer)
+        public ClaimsQueryHandler(IMapper mapper, IStringLocalizer<SharedResources> localizer, IAuthorizationService authorizationService, UserManager<User> userManager) : base(localizer)
         {
             _localizer = localizer;
             this.authorizationService = authorizationService;
@@ -27,23 +27,16 @@ namespace SchoolProject.Core.Features.Authorization.Queries.Handlers
             _mapper = mapper;
         }
 
-
-
-
-        public async Task<Response<ManageUserRolesResult>> Handle(ManageUserRoleQuery request, CancellationToken cancellationToken)
+        public async Task<Response<ManageUserClaimsResult>> Handle(ManageUserClaimsQuery request, CancellationToken cancellationToken)
         {
             var user = await userManager.FindByIdAsync(request.UserId.ToString());
 
             if (user == null)
-                return NotFound<ManageUserRolesResult>(_localizer[SharedResourcesKeys.NotFound]);
+                return NotFound<ManageUserClaimsResult>(_localizer[SharedResourcesKeys.NotFound]);
 
-            var result = await authorizationService.ManageUserRolesData(user);
+            var result = await authorizationService.ManageUserClaimData(user);
 
             return Success(result);
-
-
-
-            // ... rest of the code ...        }
         }
     }
 }

@@ -6,7 +6,7 @@ using SchoolProject.Core.Bases;
 using SchoolProject.Core.Features.Authntecation.Commands.Models;
 using SchoolProject.Core.Resources;
 using SchoolProject.Data.Entities.Identity;
-using SchoolProject.Data.Helpers;
+using SchoolProject.Data.Results;
 using SchoolProject.Service.Abstractions;
 
 namespace SchoolProject.Core.Features.Authntecation.Commands.Handlers

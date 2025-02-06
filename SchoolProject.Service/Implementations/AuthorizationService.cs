@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SchoolProject.Data.DTOs;
 using SchoolProject.Data.Entities.Identity;
-using System.Data;
+using SchoolProject.Data.Helpers;
+using SchoolProject.Data.Results;
 
 namespace SchoolProject.Service.Implementations
 {
@@ -11,7 +11,7 @@ namespace SchoolProject.Service.Implementations
         private readonly RoleManager<Role> _roleManager;
         private readonly UserManager<User> userManager;
 
-        public AuthorizationService(RoleManager<Role> roleManager,UserManager<User> userManager)
+        public AuthorizationService(RoleManager<Role> roleManager, UserManager<User> userManager)
         {
             _roleManager = roleManager;
             this.userManager = userManager;
@@ -26,13 +26,13 @@ namespace SchoolProject.Service.Implementations
             return "Failed";
         }
 
-     
+
 
         public async Task<bool> IsRoleExist(string RoleName)
         {
             return await _roleManager.RoleExistsAsync(RoleName);
         }
-        public async Task<ManageUserRolesResult> GetManageUserRolesData(User user)
+        public async Task<ManageUserRolesResult> ManageUserRolesData(User user)
         {
             var response = new ManageUserRolesResult();
             var rolesList = new List<UserRoles>();
@@ -55,6 +55,36 @@ namespace SchoolProject.Service.Implementations
                 rolesList.Add(userrole);
             }
             response.Roles = rolesList;
+            return response;
+
+        }
+
+
+        public async Task<ManageUserClaimsResult> ManageUserClaimData(User user)
+        {
+            var response = new ManageUserClaimsResult();
+            var userclaimsList = new List<UserClaims>();
+
+            response.UserId = user.Id;
+
+            var userClaims = await userManager.GetClaimsAsync(user);
+
+            foreach (var claim in ClaimsStore.claims)
+            {
+
+                var userclaim = new UserClaims();
+                userclaim.Type = claim.Type;
+                if (userClaims.Any(x => x.Type == claim.Type))
+                {
+                    userclaim.Value = true;
+                }
+                else
+                {
+                    userclaim.Value = false;
+                }
+                userclaimsList.Add(userclaim);
+            }
+            response.UserClaims = userclaimsList;
             return response;
 
         }
