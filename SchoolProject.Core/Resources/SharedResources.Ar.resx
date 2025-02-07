@@ -153,6 +153,15 @@
   <data name="FaildToAddUser" xml:space="preserve">
     <value>خطأ في أضافة العميل</value>
   </data>
+  <data name="FailedToAddNewClaims" xml:space="preserve">
+    <value>فشل في اضافة كليم جديدة</value>
+  </data>
+  <data name="FailedToRemoveOldClaims" xml:space="preserve">
+    <value>فشل في مسح الكلايم القديمة</value>
+  </data>
+  <data name="FailedToUpdateClaims" xml:space="preserve">
+    <value>فشل في تعديل الكلايم </value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>الاسم</value>
   </data>

@@ -2,7 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Entities.Identity;
 using SchoolProject.Data.Helpers;
+using SchoolProject.Data.Requests;
 using SchoolProject.Data.Results;
+using SchoolProject.Infrastructure.Data;
+using System.Security.Claims;
 
 namespace SchoolProject.Service.Implementations
 {
@@ -10,11 +13,13 @@ namespace SchoolProject.Service.Implementations
     {
         private readonly RoleManager<Role> _roleManager;
         private readonly UserManager<User> userManager;
+        private readonly ApplicationDbContext _dbContext;
 
-        public AuthorizationService(RoleManager<Role> roleManager, UserManager<User> userManager)
+        public AuthorizationService(RoleManager<Role> roleManager, UserManager<User> userManager,ApplicationDbContext dbContext)
         {
             _roleManager = roleManager;
             this.userManager = userManager;
+            _dbContext = dbContext;
         }
         public async Task<string> AddRoleAsync(string roleName)
         {
@@ -87,6 +92,37 @@ namespace SchoolProject.Service.Implementations
             response.UserClaims = userclaimsList;
             return response;
 
+        }
+
+        public async Task<string> UpdateUserClaim(UpdateUserClaimsRequest updateUserClaimsRequest)
+        {
+            var transact = await _dbContext.Database.BeginTransactionAsync();
+            try
+            {
+                var user = await userManager.FindByIdAsync(updateUserClaimsRequest.UserId.ToString());
+                if (user == null)
+                {
+                    return "UserIsNull";
+                }
+                //remove old Claims
+                var userClaims = await userManager.GetClaimsAsync(user);
+                var removeClaimsResult = await userManager.RemoveClaimsAsync(user, userClaims);
+                if (!removeClaimsResult.Succeeded)
+                    return "FailedToRemoveOldClaims";
+                var claims = updateUserClaimsRequest.UserClaims.Where(x => x.Value == true).Select(x => new Claim(x.Type, x.Value.ToString()));
+
+                var addUserClaimResult = await userManager.AddClaimsAsync(user, claims);
+                if (!addUserClaimResult.Succeeded)
+                    return "FailedToAddNewClaims";
+
+                await transact.CommitAsync();
+                return "Success";
+            }
+            catch (Exception ex)
+            {
+                await transact.RollbackAsync();
+                return "FailedToUpdateClaims";
+            }
         }
     }
 }

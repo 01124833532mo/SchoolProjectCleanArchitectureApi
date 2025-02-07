@@ -72,6 +72,7 @@
 
             public const string ManageUserRoles = Roles + "/ManageUserRoles/{userid}";
             public const string ManageUserClaims = Claims + "/ManageUserClaims/{userid}";
+            public const string UpdateUserClaims = Claims + "/Update-User-Claims";
 
 
 

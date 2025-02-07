@@ -38,6 +38,10 @@
         public const string Updated = "Updated";
         public const string AddFaild = "AddFaild";
 
+        public const string FailedToRemoveOldClaims = "FailedToRemoveOldClaims";
+        public const string FailedToAddNewClaims = "FailedToAddNewClaims";
+        public const string FailedToUpdateClaims = "FailedToUpdateClaims";
+
 
     }
 }
