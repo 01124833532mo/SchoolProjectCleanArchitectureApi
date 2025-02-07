@@ -97,6 +97,25 @@ namespace SchoolProject.Api.Services
            });
             });
 
+
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("CreateStudent", policy =>
+                {
+                    policy.RequireClaim("Create Student", "True");
+                });
+
+                options.AddPolicy("DeleteStudent", policy =>
+                {
+                    policy.RequireClaim("Delete Student", "True");
+                });
+
+                options.AddPolicy("EditStudent", policy =>
+                {
+                    policy.RequireClaim("Edit Student", "True");
+                });
+            });
             return services;
 
         }
