@@ -30,7 +30,7 @@ namespace SchoolProject.Api
 
 
             builder.Services.AddInfrastructureDependencies();
-            builder.Services.AddServicesDependencies();
+            builder.Services.AddServicesDependencies(builder.Configuration);
             builder.Services.AddCoreDependencies();
             builder.Services.AddServiceRegistration(builder.Configuration);
             builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("jwtSettings"));

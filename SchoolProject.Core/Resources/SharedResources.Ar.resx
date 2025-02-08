@@ -147,6 +147,9 @@
   <data name="DepartmentIdIsNotExist" xml:space="preserve">
     <value>لا يوجد هزا القسم</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>الايميل</value>
+  </data>
   <data name="EmailIsExsist" xml:space="preserve">
     <value> هزا الحساب موجود</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="FailedToUpdateClaims" xml:space="preserve">
     <value>فشل في تعديل الكلايم </value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>الرسالة</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>الاسم</value>
@@ -188,6 +194,9 @@
   </data>
   <data name="Required" xml:space="preserve">
     <value>هزا الحقل مطلوب</value>
+  </data>
+  <data name="SendEmailFailed" xml:space="preserve">
+    <value>فشل في أرسال الي الايميل</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value>تم التعديل بنجاح</value>

@@ -144,6 +144,9 @@
   <data name="DepartmentIdIsNotExist" xml:space="preserve">
     <value>Department Id Is NotExist</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="EmailIsExsist" xml:space="preserve">
     <value>Email Is Exsist</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="FailedToUpdateClaims" xml:space="preserve">
     <value>Failed To Update Claims</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -185,6 +191,9 @@
   </data>
   <data name="Required" xml:space="preserve">
     <value>This Field Is Required</value>
+  </data>
+  <data name="SendEmailFailed" xml:space="preserve">
+    <value>Send Email Failed</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value>Department Id</value>
