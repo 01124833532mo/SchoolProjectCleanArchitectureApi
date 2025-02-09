@@ -15,11 +15,12 @@ namespace SchoolProject.Service
             services.AddTransient(typeof(IAuthenticationService), typeof(AuthenticationService));
             services.AddTransient(typeof(IAuthorizationService), typeof(AuthorizationService));
             services.AddTransient(typeof(IEmailService), typeof(EmailService));
+            services.AddTransient(typeof(IApplicationUserService), typeof(ApplicationUserService));
 
             services.Configure<JwtSettings>(configuration.GetSection("jwtSettings"));
             services.Configure<EmailSettings>(configuration.GetSection("emailSettings"));
 
-
+            services.AddHttpContextAccessor();
             return services;
         }
     }

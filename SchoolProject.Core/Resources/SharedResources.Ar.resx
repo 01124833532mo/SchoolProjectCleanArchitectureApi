@@ -132,6 +132,9 @@
   <data name="ChangePasswordSuccess" xml:space="preserve">
     <value>نجح في تغير كلمة المرور</value>
   </data>
+  <data name="ConfirmEmailDone" xml:space="preserve">
+    <value>تأكيد الحساب تم بنجاح </value>
+  </data>
   <data name="Created" xml:space="preserve">
     <value>تم الاضافة بنجاح</value>
   </data>
@@ -152,6 +155,12 @@
   </data>
   <data name="EmailIsExsist" xml:space="preserve">
     <value> هزا الحساب موجود</value>
+  </data>
+  <data name="EmailNotConfirmed" xml:space="preserve">
+    <value>الايميل ليس موثقا</value>
+  </data>
+  <data name="ErrorWhenConfirmEmail" xml:space="preserve">
+    <value>حدث خطأ اثناء تأكيد الحساب</value>
   </data>
   <data name="FaildToAddUser" xml:space="preserve">
     <value>خطأ في أضافة العميل</value>
@@ -209,6 +218,9 @@
   </data>
   <data name="tokenisnotExpired" xml:space="preserve">
     <value>كود التشفير شغال</value>
+  </data>
+  <data name="TryToRegisterAgain" xml:space="preserve">
+    <value>حاول التسجيل مجددا</value>
   </data>
   <data name="UnAuthorized" xml:space="preserve">
     <value>غير مسموح لك </value>

@@ -218,5 +218,27 @@ namespace SchoolProject.Service.Implementations
             var expirydate = userRefreshToken.ExpiryDate;
             return (userId, expirydate);
         }
+
+        public async Task<string> ConfirmEmail(int? userId, string? code)
+        {
+            // Check if userId or code is null
+            if (userId == null || code == null)
+                return "ErrorWhenConfirmEmail";
+
+
+            // Find the user by userId
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+                return "UserNotFound";
+
+
+            // Confirm the email
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            if (!result.Succeeded)
+                return "ErrorWhenConfirmEmail";
+
+
+            return "Success";
+        }
     }
 }
