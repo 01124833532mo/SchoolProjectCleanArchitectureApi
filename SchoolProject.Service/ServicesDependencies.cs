@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using SchoolProject.Data.Helpers;
 using SchoolProject.Service.Abstractions;
+using SchoolProject.Service.AuthServices.Contracts;
+using SchoolProject.Service.AuthServices.Implementation;
 using SchoolProject.Service.Implementations;
 
 namespace SchoolProject.Service
@@ -16,6 +18,7 @@ namespace SchoolProject.Service
             services.AddTransient(typeof(IAuthorizationService), typeof(AuthorizationService));
             services.AddTransient(typeof(IEmailService), typeof(EmailService));
             services.AddTransient(typeof(IApplicationUserService), typeof(ApplicationUserService));
+            services.AddTransient(typeof(ICurrentUserService), typeof(CurrentUserService));
 
             services.Configure<JwtSettings>(configuration.GetSection("jwtSettings"));
             services.Configure<EmailSettings>(configuration.GetSection("emailSettings"));
