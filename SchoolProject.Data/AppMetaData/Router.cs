@@ -87,5 +87,10 @@
 
 
         }
+        public static class InstructorRouting
+        {
+            public const string Prefix = Rule + "InstructorRouting";
+            public const string AddInstructor = Prefix + "/Create";
+        }
     }
 }

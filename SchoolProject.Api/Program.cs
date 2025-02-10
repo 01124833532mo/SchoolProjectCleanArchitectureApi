@@ -100,7 +100,7 @@ namespace SchoolProject.Api
             app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
             app.UseAuthentication();
             app.UseAuthorization();
 

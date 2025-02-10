@@ -50,6 +50,8 @@
 
         public const string ErrorWhenConfirmEmail = "ErrorWhenConfirmEmail";
         public const string ConfirmEmailDone = "ConfirmEmailDone";
+        public const string NoImage = "NoImage";
+        public const string FailedToUploadImage = "FailedToUploadImage";
 
 
     }

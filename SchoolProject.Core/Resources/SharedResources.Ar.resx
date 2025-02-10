@@ -174,11 +174,17 @@
   <data name="FailedToUpdateClaims" xml:space="preserve">
     <value>فشل في تعديل الكلايم </value>
   </data>
+  <data name="FailedToUploadImage" xml:space="preserve">
+    <value>فشل في رفع الصورة</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>الرسالة</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>الاسم</value>
+  </data>
+  <data name="NoImage" xml:space="preserve">
+    <value>لا يوجد صورة </value>
   </data>
   <data name="NotEmpty" xml:space="preserve">
     <value> لا يمكن ترك العنصر فارغا</value>
