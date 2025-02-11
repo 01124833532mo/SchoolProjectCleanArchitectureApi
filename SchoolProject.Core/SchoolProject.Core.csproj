@@ -27,7 +27,6 @@
     <Folder Include="Features\Authorization\Queries\Response\" />
     <Folder Include="Features\Department\Command\" />
     <Folder Include="Features\Emails\Queries\" />
-    <Folder Include="Features\Instractors\Queries\" />
     <Folder Include="Mapping\Departments\CommandMapping\" />
   </ItemGroup>
 

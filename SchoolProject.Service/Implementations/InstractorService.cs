@@ -2,7 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Entities;
 using SchoolProject.Infrastructure.Abstracts;
+using SchoolProject.Infrastructure.Abstracts.Functions;
+using SchoolProject.Infrastructure.Data;
 using SchoolProject.Service.Abstractions;
+using System.Data;
 
 namespace SchoolProject.Service.Implementations
 {
@@ -11,12 +14,22 @@ namespace SchoolProject.Service.Implementations
         private readonly IInstructorsRepository _instructorsRepository;
         private readonly IFileService _fileService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ApplicationDbContext _dbContext;
+        private readonly IInstructorFunctionsRepository _instructorFunctionsRepository;
 
-        public InstractorService(IInstructorsRepository instructorsRepository, IFileService fileService, IHttpContextAccessor httpContextAccessor)
+        public InstractorService(
+            IInstructorsRepository instructorsRepository,
+            IFileService fileService,
+            IHttpContextAccessor httpContextAccessor,
+            ApplicationDbContext dbContext,
+            IInstructorFunctionsRepository instructorFunctionsRepository)
         {
             _instructorsRepository = instructorsRepository;
             _fileService = fileService;
             _httpContextAccessor = httpContextAccessor;
+            _dbContext = dbContext;
+            _instructorFunctionsRepository = instructorFunctionsRepository;
+
         }
 
 
@@ -79,5 +92,24 @@ namespace SchoolProject.Service.Implementations
 
         }
 
+        public Task<decimal> GetSalarySummationOfInstructor()
+        {
+
+            decimal result = 0;
+
+            using (var cmd = _dbContext.Database.GetDbConnection().CreateCommand())
+            {
+                if (cmd.Connection.State != ConnectionState.Open)
+                {
+                    cmd.Connection.Open();
+                }
+
+                result = _instructorFunctionsRepository.GetSalarySummationOfInstructor("select dbo.GetSalarySummation()", cmd);
+            }
+
+            return Task.FromResult(result);
+
+
+        }
     }
 }

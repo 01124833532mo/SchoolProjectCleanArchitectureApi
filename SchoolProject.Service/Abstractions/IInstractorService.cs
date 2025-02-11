@@ -12,5 +12,7 @@ namespace SchoolProject.Service.Abstractions
         public Task<bool> IsNameEnExistExcludeSelf(string name, int id);
 
         public Task<string> AddInstractorAsync(Instructor instructor, IFormFile file);
+
+        public Task<decimal> GetSalarySummationOfInstructor();
     }
 }
