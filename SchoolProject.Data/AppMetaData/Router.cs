@@ -23,6 +23,17 @@
 
 
         }
+        public static class SubjectRouting
+        {
+            public const string Prefix = Rule + "Subject";
+            public const string List = Prefix + "/List";
+            public const string Create = Prefix + "/Create";
+            public const string Edit = Prefix + "/Edit";
+
+            public const string Paginated = Prefix + "/Paginated";
+
+
+        }
 
         public static class DepartmentRouting
         {

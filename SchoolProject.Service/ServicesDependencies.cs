@@ -21,6 +21,7 @@ namespace SchoolProject.Service
             services.AddTransient(typeof(ICurrentUserService), typeof(CurrentUserService));
             services.AddTransient(typeof(IInstractorService), typeof(InstractorService));
             services.AddTransient(typeof(IFileService), typeof(FileService));
+            services.AddTransient(typeof(ISubjectService), typeof(SubjectService));
 
             services.Configure<JwtSettings>(configuration.GetSection("jwtSettings"));
             services.Configure<EmailSettings>(configuration.GetSection("emailSettings"));

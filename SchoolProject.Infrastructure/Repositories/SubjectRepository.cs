@@ -1,4 +1,5 @@
-﻿using SchoolProject.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SchoolProject.Data.Entities;
 using SchoolProject.Infrastructure.Abstracts;
 using SchoolProject.Infrastructure.Data;
 using SchoolProject.Infrastructure.InfrastructureBases;
@@ -14,5 +15,9 @@ namespace SchoolProject.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<List<Subjects>> GetSubjectsListAsync()
+        {
+            return await _dbContext.Subjects.ToListAsync();
+        }
     }
 }

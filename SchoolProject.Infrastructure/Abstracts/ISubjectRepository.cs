@@ -5,5 +5,7 @@ namespace SchoolProject.Infrastructure.Abstracts
 {
     public interface ISubjectRepository : IGenericRepository<Subjects>
     {
+        Task<List<Subjects>> GetSubjectsListAsync();
+
     }
 }
