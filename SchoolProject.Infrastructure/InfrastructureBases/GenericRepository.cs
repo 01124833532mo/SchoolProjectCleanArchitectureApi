@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using SchoolProject.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolProject.Infrastructure.InfrastructureBases
 {
@@ -47,13 +42,13 @@ namespace SchoolProject.Infrastructure.InfrastructureBases
         public virtual async Task AddRangeAsync(ICollection<T> entities)
         {
             await _dbContext.Set<T>().AddRangeAsync(entities);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
 
         }
         public virtual async Task<T> AddAsync(T entity)
         {
             await _dbContext.Set<T>().AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
 
             return entity;
         }
@@ -61,7 +56,7 @@ namespace SchoolProject.Infrastructure.InfrastructureBases
         public virtual async Task UpdateAsync(T entity)
         {
             _dbContext.Set<T>().Update(entity);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
 
         }
 
@@ -76,13 +71,13 @@ namespace SchoolProject.Infrastructure.InfrastructureBases
             {
                 _dbContext.Entry(entity).State = EntityState.Deleted;
             }
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
         }
 
-        public async Task SaveChangesAsync()
-        {
-            await _dbContext.SaveChangesAsync();
-        }
+        //public async Task SaveChangesAsync()
+        //{
+        //    //await _dbContext.SaveChangesAsync();
+        //}
 
 
 
@@ -114,7 +109,7 @@ namespace SchoolProject.Infrastructure.InfrastructureBases
         public virtual async Task UpdateRangeAsync(ICollection<T> entities)
         {
             _dbContext.Set<T>().UpdateRange(entities);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
         }
         #endregion
     }

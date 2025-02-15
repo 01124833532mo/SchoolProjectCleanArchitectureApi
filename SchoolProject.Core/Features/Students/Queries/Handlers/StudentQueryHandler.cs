@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Features.Students.Queries.Models;
 using SchoolProject.Core.Features.Students.Queries.Results;
+using SchoolProject.Core.Resources;
 using SchoolProject.Core.Wrappers;
 using SchoolProject.Data.Entities;
 using SchoolProject.Service.Abstractions;
@@ -16,26 +18,32 @@ namespace SchoolProject.Core.Features.Students.Queries.Handlers
     {
         private readonly IStudentService _studentService;
         private readonly IMapper _mapper;
+        private readonly IStringLocalizer<SharedResources> _stringLocalizer;
         //private readonly ResponseHandler responseHandler;
 
-        public StudentQueryHandler(IStudentService studentService, IMapper mapper/*,ResponseHandler responseHandler*/)
+        public StudentQueryHandler(IStudentService studentService, IMapper mapper/*,ResponseHandler responseHandler*/, IStringLocalizer<SharedResources> StringLocalizer) : base(StringLocalizer)
         {
             _studentService = studentService;
             _mapper = mapper;
+            _stringLocalizer = StringLocalizer;
             //this.responseHandler = responseHandler;
         }
         public async Task<Response<List<GetStudentListResponse>>> Handle(GetStudentListQuery request, CancellationToken cancellationToken)
         {
             var StudentList = await _studentService.GetStudentsAsync();
             var studentListMapper = _mapper.Map<List<GetStudentListResponse>>(StudentList);
-            return Success(studentListMapper);
+            var result = Success(studentListMapper);
+
+            result.Meta = new { Count = studentListMapper.Count() };
+
+            return result;
 
         }
 
         public async Task<Response<GetSingleStudentResponse>> Handle(GetStudentByIdQuery request, CancellationToken cancellationToken)
         {
             var student = await _studentService.GetStudentByIdWithIncludeAsync(request.Id);
-            if (student == null) return NotFound<GetSingleStudentResponse>();
+            if (student == null) return NotFound<GetSingleStudentResponse>(_stringLocalizer[SharedResourcesKeys.NotFound]);
 
             var result = _mapper.Map<GetSingleStudentResponse>(student);
             return Success(result);
@@ -45,7 +53,7 @@ namespace SchoolProject.Core.Features.Students.Queries.Handlers
 
         public async Task<PaginatedResult<GetStudentPaginatedListResponse>> Handle(GetStudentPaginatedListQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<Student, GetStudentPaginatedListResponse>> expression = e => new GetStudentPaginatedListResponse(e.Id, e.Name, e.Address, e.Department.Name);
+            Expression<Func<Student, GetStudentPaginatedListResponse>> expression = e => new GetStudentPaginatedListResponse(e.Id, e.Localize(e.NameAr, e.NameEn), e.Address, e.Localize(e.Department.NameAr, e.Department.NameEn));
             //var querable = _studentService.GetStudentsQueryable();
             //var querable = _studentService.GetStudentsQuarable();
             var filterQuery = _studentService.FilterStudentsPaginatedQueryable(request.OrderBy, request.Search);

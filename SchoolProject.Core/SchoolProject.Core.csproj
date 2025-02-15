@@ -18,6 +18,14 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Authntecation\Queries\Response\" />
+    <Folder Include="Features\Authorization\Queries\Response\" />
+    <Folder Include="Features\Emails\Queries\" />
   </ItemGroup>
 
 </Project>

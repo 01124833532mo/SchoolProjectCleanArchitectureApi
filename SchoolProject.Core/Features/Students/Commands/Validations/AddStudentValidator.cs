@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Features.Students.Commands.Models;
+using SchoolProject.Core.Resources;
 using SchoolProject.Service.Abstractions;
 
 namespace SchoolProject.Core.Features.Students.Commands.Validations
@@ -7,19 +9,24 @@ namespace SchoolProject.Core.Features.Students.Commands.Validations
     public class AddStudentValidator : AbstractValidator<AddStudentCommand>
     {
         private readonly IStudentService _studentService;
+        private readonly IStringLocalizer<SharedResources> _localizer;
+        private readonly IDepartmentServices _departmentServices;
 
-        public AddStudentValidator(IStudentService studentService)
+        public AddStudentValidator(IStudentService studentService, IStringLocalizer<SharedResources> localizer, IDepartmentServices departmentServices)
         {
+            _studentService = studentService;
+            _localizer = localizer;
+            _departmentServices = departmentServices;
             ApplayValidationsRules();
             ApplayCustomValidationsRules();
-            _studentService = studentService;
+
         }
 
 
 
         public void ApplayValidationsRules()
         {
-            RuleFor(e => e.Name).NotEmpty().WithMessage("Name Must not be Empty")
+            RuleFor(e => e.NameAr).NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
                                .NotNull().WithMessage("Name Must not Be Null")
                                .MaximumLength(100).WithMessage("Max Length is 10");
 
@@ -27,12 +34,23 @@ namespace SchoolProject.Core.Features.Students.Commands.Validations
                               .NotNull().WithMessage("{PropertyValue} Must not Be Null")
                               .MaximumLength(100).WithMessage("{PropertyName} Length is 10");
 
+            RuleFor(e => e.DepartmentId).NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
+                                        .NotNull().WithMessage("Department Must Not Null , Must Be Requerd");
+
         }
         public void ApplayCustomValidationsRules()
         {
-            RuleFor(x => x.Name)
-                .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameExist(key))
+            RuleFor(x => x.NameAr)
+                .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameArExist(key))
                 .WithMessage("Name is Exist");
+            RuleFor(x => x.NameEn)
+               .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameEnExist(key))
+               .WithMessage("Name is Exist");
+
+
+            RuleFor(x => x.DepartmentId)
+             .MustAsync(async (key, CancellationToken) => await _departmentServices.IsDepartmentIdExist(key))
+             .WithMessage(_localizer[SharedResourcesKeys.DepartmentIdIsNotExist]);
         }
     }
 }

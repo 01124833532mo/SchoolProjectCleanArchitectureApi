@@ -1,15 +1,24 @@
 
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.Extensions.Options;
+using SchoolProject.Api.Services;
 using SchoolProject.Core;
+using SchoolProject.Data.Entities.Identity;
+using SchoolProject.Data.Helpers;
 using SchoolProject.Infrastructure;
-using SchoolProject.Infrastructure.Data;
+using SchoolProject.Infrastructure.Seeder;
 using SchoolProject.Service;
+using System.Globalization;
 
 namespace SchoolProject.Api
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -21,27 +30,78 @@ namespace SchoolProject.Api
             builder.Services.AddSwaggerGen();
 
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolSystem"));
-            });
+
 
             builder.Services.AddInfrastructureDependencies();
-            builder.Services.AddServicesDependencies();
+            builder.Services.AddServicesDependencies(builder.Configuration);
             builder.Services.AddCoreDependencies();
+            builder.Services.AddServiceRegistration(builder.Configuration);
+            builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("jwtSettings"));
 
+
+            #region Localization
+            builder.Services.AddControllersWithViews()
+                     .AddViewLocalization(option =>
+                     {
+                         option.ResourcesPath = "";
+                     });
+
+
+
+            builder.Services.Configure<RequestLocalizationOptions>(options =>
+                {
+                    List<CultureInfo> supportedCultures = new List<CultureInfo>
+                            {
+                            new CultureInfo("en-US"),
+                            new CultureInfo("de-DE"),
+                            new CultureInfo("fr-FR"),
+                            new CultureInfo("ar-EG")
+                            };
+                    options.DefaultRequestCulture = new RequestCulture("en-US");
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+                });
+
+            //builder.Services.Configure<RequestLocalizationOptions>(options =>
+            //{
+            //    options.DefaultRequestCulture =new RequestCulture("ar-EG");
+            //});
+
+            #endregion
+
+            builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            builder.Services.AddTransient<IUrlHelper>(x =>
+            {
+                var actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
+                var factory = x.GetRequiredService<IUrlHelperFactory>();
+                return factory.GetUrlHelper(actionContext);
+            });
             var app = builder.Build();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+
+                await RoleSeeder.SeedAsync(roleManager);
+                await UserSeeder.SeedAsync(userManager);
+            }
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            #region Localization MiddleWare
+            var options = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(options.Value);
+            #endregion
+
             app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

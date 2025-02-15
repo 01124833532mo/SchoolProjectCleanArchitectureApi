@@ -1,5 +1,5 @@
 ﻿using SchoolProject.Data.Entities;
-using SchoolProject.Data.Helpers;
+using SchoolProject.Data.Enums;
 
 namespace SchoolProject.Service.Abstractions
 {
@@ -13,14 +13,19 @@ namespace SchoolProject.Service.Abstractions
 
         public Task<string> AddAsync(Student student);
 
-        public Task<bool> IsNameExist(string name);
-        public Task<bool> IsNameExistExcludeSelf(string name, int id);
+        public Task<bool> IsNameArExist(string name);
+        public Task<bool> IsNameEnExist(string name);
+
+        public Task<bool> IsNameArExistExcludeSelf(string name, int id);
+        public Task<bool> IsNameEnExistExcludeSelf(string name, int id);
+
 
         public Task<string> EditAsync(Student student);
 
         public Task<string> DeleteAsync(Student student);
 
         public IQueryable<Student> GetStudentsQuarable();
+        public IQueryable<Student> GetStudentsByDepartmentIdQuarable(int Did);
         public IQueryable<Student> FilterStudentsPaginatedQueryable(StudentOrderingEnum orderingEnum, string search);
 
 
