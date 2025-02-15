@@ -14,5 +14,7 @@ namespace SchoolProject.Service.Abstractions
         public Task<string> AddInstractorAsync(Instructor instructor, IFormFile file);
 
         public Task<decimal> GetSalarySummationOfInstructor();
+        public Task<bool> IsInstractorIdExist(int? instractorId);
+
     }
 }

@@ -177,6 +177,9 @@
   <data name="FailedToUploadImage" xml:space="preserve">
     <value>فشل في رفع الصورة</value>
   </data>
+  <data name="InstractorIdNotExist" xml:space="preserve">
+    <value>لا يوجد هذا المدرس</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>الرسالة</value>
   </data>

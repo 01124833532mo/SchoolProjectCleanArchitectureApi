@@ -126,5 +126,10 @@ namespace SchoolProject.Service.Implementations
 
 
         }
+
+        public async Task<bool> IsInstractorIdExist(int? instractorId)
+        {
+            return await unitOfWork.GetRepository<Instructor>().GetTableNoTracking().AnyAsync(e => e.InstructorId.Equals(instractorId));
+        }
     }
 }

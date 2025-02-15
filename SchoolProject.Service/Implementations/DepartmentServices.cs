@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Entities;
 using SchoolProject.Infrastructure.Abstracts;
+using SchoolProject.Infrastructure.InfrastructureBases;
 using SchoolProject.Infrastructure.InfrastructureBases.UnitOfWork;
 using SchoolProject.Service.Abstractions;
 
@@ -38,6 +39,52 @@ namespace SchoolProject.Service.Implementations
             //return await _departmentRepository.GetTableNoTracking().AnyAsync(e => e.Id.Equals(departmentId));
 
             return await _unitOfWork.GetRepository<Department>().GetTableNoTracking().AnyAsync(e => e.Id.Equals(departmentId));
+        }
+        public async Task<bool> IsNameArExist(string name)
+        {
+            var student = GetUnitOfWork().GetTableNoTracking().Where(x => x.NameAr.Equals(name)).FirstOrDefault();
+
+            if (student == null) return false;
+            return true;
+
+        }
+
+        public async Task<bool> IsNameEnExist(string name)
+        {
+            var student = GetUnitOfWork().GetTableNoTracking().Where(x => x.NameEn.Equals(name)).FirstOrDefault();
+
+            if (student == null) return false;
+            return true;
+
+        }
+
+
+
+        public async Task<bool> IsNameArExistExcludeSelf(string name, int id)
+        {
+            var student = await GetUnitOfWork().GetTableNoTracking().Where(x => x.NameAr.Equals(name) & !x.Id.Equals(id)).FirstOrDefaultAsync();
+
+            if (student == null) return false;
+            return true;
+        }
+
+        public async Task<bool> IsNameEnExistExcludeSelf(string name, int id)
+        {
+            var student = await GetUnitOfWork().GetTableNoTracking().Where(x => x.NameEn.Equals(name) & !x.Id.Equals(id)).FirstOrDefaultAsync();
+
+            if (student == null) return false;
+            return true;
+        }
+        private IGenericRepository<Department> GetUnitOfWork()
+        {
+            return _unitOfWork.GetRepository<Department>();
+        }
+
+        public async Task<string> AddAsync(Department subjects)
+        {
+            await GetUnitOfWork().AddAsync(subjects);
+            await _unitOfWork.CompleteAsync();
+            return "Success";
         }
     }
 }

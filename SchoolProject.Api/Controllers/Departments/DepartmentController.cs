@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Api.Base;
+using SchoolProject.Core.Features.Department.Command.Models;
 using SchoolProject.Core.Features.Department.Queries.Models;
 using SchoolProject.Data.AppMetaData;
 
@@ -16,6 +17,13 @@ namespace SchoolProject.Api.Controllers.Departments
 
             return NewResult(result);
 
+        }
+
+        [HttpPost(Router.DepartmentRouting.Create)]
+        public async Task<IActionResult> CreateDepartment([FromBody] CreateDepartmentCommand command)
+        {
+            var result = await Mediator.Send(command);
+            return NewResult(result);
         }
     }
 }
