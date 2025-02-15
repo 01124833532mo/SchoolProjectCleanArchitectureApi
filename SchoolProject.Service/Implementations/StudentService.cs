@@ -2,6 +2,8 @@
 using SchoolProject.Data.Entities;
 using SchoolProject.Data.Enums;
 using SchoolProject.Infrastructure.Abstracts;
+using SchoolProject.Infrastructure.InfrastructureBases;
+using SchoolProject.Infrastructure.InfrastructureBases.UnitOfWork;
 using SchoolProject.Service.Abstractions;
 
 namespace SchoolProject.Service.Implementations
@@ -9,14 +11,16 @@ namespace SchoolProject.Service.Implementations
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public StudentService(IStudentRepository studentRepository)
+        public StudentService(IStudentRepository studentRepository, IUnitOfWork unitOfWork)
         {
             _studentRepository = studentRepository;
+            _unitOfWork = unitOfWork;
         }
         public async Task<Student> GetStudentByIdWithIncludeAsync(int id)
         {
-            var student = _studentRepository.GetTableNoTracking().Include(p => p.Department).Where(p => p.Id.Equals(id)).FirstOrDefault();
+            var student = _unitOfWork.GetRepository<Student>().GetTableNoTracking().Include(p => p.Department).Where(p => p.Id.Equals(id)).FirstOrDefault();
 
             return student;
         }
@@ -33,8 +37,12 @@ namespace SchoolProject.Service.Implementations
             if (student.DepartmentId == null)
                 student.DepartmentId = null;
 
-            await _studentRepository.AddAsync(student);
+            await GetUnitOfWork().AddAsync(student);
+            await _unitOfWork.CompleteAsync();
+
             return "Success";
+
+
 
             //await _studentRepository.AddAsync(student);
             //return "Success";
@@ -42,12 +50,12 @@ namespace SchoolProject.Service.Implementations
 
         public async Task<List<Student>> GetStudentsAsync()
         {
-            return await _studentRepository.GetStudentsListAsync();
+            return await _unitOfWork.StudentRepository.GetStudentsListAsync();
         }
 
         public async Task<bool> IsNameArExist(string name)
         {
-            var student = _studentRepository.GetTableNoTracking().Where(x => x.NameAr.Equals(name)).FirstOrDefault();
+            var student = GetUnitOfWork().GetTableNoTracking().Where(x => x.NameAr.Equals(name)).FirstOrDefault();
 
             if (student == null) return false;
             return true;
@@ -56,16 +64,18 @@ namespace SchoolProject.Service.Implementations
 
         public async Task<bool> IsNameEnExist(string name)
         {
-            var student = _studentRepository.GetTableNoTracking().Where(x => x.NameEn.Equals(name)).FirstOrDefault();
+            var student = GetUnitOfWork().GetTableNoTracking().Where(x => x.NameEn.Equals(name)).FirstOrDefault();
 
             if (student == null) return false;
             return true;
 
         }
 
+
+
         public async Task<bool> IsNameArExistExcludeSelf(string name, int id)
         {
-            var student = await _studentRepository.GetTableNoTracking().Where(x => x.NameAr.Equals(name) & !x.Id.Equals(id)).FirstOrDefaultAsync();
+            var student = await GetUnitOfWork().GetTableNoTracking().Where(x => x.NameAr.Equals(name) & !x.Id.Equals(id)).FirstOrDefaultAsync();
 
             if (student == null) return false;
             return true;
@@ -73,7 +83,7 @@ namespace SchoolProject.Service.Implementations
 
         public async Task<bool> IsNameEnExistExcludeSelf(string name, int id)
         {
-            var student = await _studentRepository.GetTableNoTracking().Where(x => x.NameEn.Equals(name) & !x.Id.Equals(id)).FirstOrDefaultAsync();
+            var student = await GetUnitOfWork().GetTableNoTracking().Where(x => x.NameEn.Equals(name) & !x.Id.Equals(id)).FirstOrDefaultAsync();
 
             if (student == null) return false;
             return true;
@@ -81,7 +91,8 @@ namespace SchoolProject.Service.Implementations
 
         public async Task<string> EditAsync(Student student)
         {
-            await _studentRepository.UpdateAsync(student);
+            await GetUnitOfWork().UpdateAsync(student);
+            await _unitOfWork.CompleteAsync();
             return "Success";
 
 
@@ -89,13 +100,19 @@ namespace SchoolProject.Service.Implementations
 
         public async Task<string> DeleteAsync(Student student)
         {
+            var uniteofwork = GetUnitOfWork();
 
-            var trans = _studentRepository.BeginTransaction();
+            var trans = uniteofwork.BeginTransaction();
             try
             {
-                await _studentRepository.DeleteAsync(student);
+                await uniteofwork.DeleteAsync(student);
+                var complete = await _unitOfWork.CompleteAsync() > 0;
                 await trans.CommitAsync();
-                return "Success";
+                if (complete)
+                    return "Success";
+                else
+                    return "Faild";
+
             }
             catch
             {
@@ -107,13 +124,13 @@ namespace SchoolProject.Service.Implementations
 
         public async Task<Student> GetByIdAsync(int id)
         {
-            var student = await _studentRepository.GetByIdAsync(id);
+            var student = await GetUnitOfWork().GetByIdAsync(id);
             return student;
         }
 
         public IQueryable<Student> GetStudentsQuarable()
         {
-            return _studentRepository.GetTableNoTracking().Include(x => x.Department).AsQueryable();
+            return GetUnitOfWork().GetTableNoTracking().Include(x => x.Department).AsQueryable();
 
 
 
@@ -121,7 +138,7 @@ namespace SchoolProject.Service.Implementations
 
         public IQueryable<Student> FilterStudentsPaginatedQueryable(StudentOrderingEnum orderingEnum, string search)
         {
-            var querable = _studentRepository.GetTableNoTracking().Include(x => x.Department).AsQueryable();
+            var querable = GetUnitOfWork().GetTableNoTracking().Include(x => x.Department).AsQueryable();
             if (search != null)
             {
                 querable = querable.Where(x => x.NameAr.Contains(search) || x.Address.Contains(search));
@@ -152,9 +169,13 @@ namespace SchoolProject.Service.Implementations
 
         public IQueryable<Student> GetStudentsByDepartmentIdQuarable(int Did)
         {
-            return _studentRepository.GetTableNoTracking().Where(x => x.DepartmentId.Equals(Did)).AsQueryable();
+            return GetUnitOfWork().GetTableNoTracking().Where(x => x.DepartmentId.Equals(Did)).AsQueryable();
 
 
+        }
+        private IGenericRepository<Student> GetUnitOfWork()
+        {
+            return _unitOfWork.GetRepository<Student>();
         }
     }
 }

@@ -2,6 +2,7 @@
 using SchoolProject.Infrastructure.Abstracts;
 using SchoolProject.Infrastructure.Abstracts.Functions;
 using SchoolProject.Infrastructure.InfrastructureBases;
+using SchoolProject.Infrastructure.InfrastructureBases.UnitOfWork;
 using SchoolProject.Infrastructure.Repositories;
 using SchoolProject.Infrastructure.Repositories.Functions;
 
@@ -17,6 +18,7 @@ namespace SchoolProject.Infrastructure
             services.AddTransient(typeof(ISubjectRepository), typeof(SubjectRepository));
             services.AddTransient(typeof(IRefreshTokenRepository), typeof(RefreshTokenRepository));
             services.AddTransient(typeof(IInstructorFunctionsRepository), typeof(InstructorFunctionsRepository));
+            services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
 
 
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
