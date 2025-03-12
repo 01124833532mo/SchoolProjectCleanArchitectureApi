@@ -1,4 +1,4 @@
-# SchoolProjectInCleanArchitecture
+# School Mangment With Clean Architecture
 ## Description
 - SchoolProject Using Asp.net Core Web Api Using Clean Architecture Based On Code First
 
